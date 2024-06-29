@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -42,3 +43,19 @@ class Customer(models.Model):
     name = models.CharField(max_length=250)
     product = models.ManyToManyField(Product)
     created = models.DateTimeField(auto_now_add=True)
+    
+# Employee
+class Employee(models.Model):
+    employee_id = models.BigAutoField(primary_key=True,
+                                      auto_created=True,
+                                      verbose_name="employee_id")
+    full_name = models.CharField(max_length=350)
+    user = models.OneToOneField(User,
+                                on_delete=models.SET_NULL,
+                                null=True,                                
+                                verbose_name="user")
+    created = models.DateTimeField(auto_created=True, auto_now_add=True)
+    
+    # class Meta:
+    #     ordering =[models.F("employee_id").desc()]
+    
